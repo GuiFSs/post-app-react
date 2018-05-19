@@ -13,7 +13,7 @@ const postInput = (props) => {
                 <textarea id="body" className="form-control" placeholder="Post Body" />
             </div>
             <input type="hidden" id="id" value="" />
-            <button className="post-submit btn btn-primary btn-block" >Post It</button>
+            <button className="post-submit btn btn-primary btn-block" onClick={props.postClick} >Post It</button>
         </div>
     );
 };
