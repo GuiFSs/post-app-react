@@ -1,13 +1,18 @@
 const express = require('express'),
 	  app = express(),
 	  morgan = require('morgan'),
-	  bodyParser = require('body-parser');
+      bodyParser = require('body-parser'),
+      mongoose = require('mongoose');
 
 const posts = require('./api/routes/posts');
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+
+mongoose.connect('mongodb://localhost:27017/microposts');
+
+mongoose.Promise = global.Promise;
 
 const port = process.env.PORT || 5000;
 

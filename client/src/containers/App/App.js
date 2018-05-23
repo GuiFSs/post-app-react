@@ -28,7 +28,7 @@ class App extends Component {
 		return {
 			title, 
 			body,
-			date: new Date().toLocaleString()
+			date: new Date().toLocaleDateString()
 		};
 	}
 
