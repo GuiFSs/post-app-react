@@ -1,7 +1,6 @@
 export default class Http {
-    
+
     static async post(url, data) {
-        try {
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {'Content-type': 'application/json'},
@@ -9,9 +8,18 @@ export default class Http {
             });
             const responseData = await response.json();
             return responseData;
-        }catch (err) {
-            throw new Error('something went wrong when trying to post');
-        }
-        
+    }
+
+    static async get(url) {
+        const response = await fetch(url);
+        const responseData = await response.json();
+        return responseData;
+    }
+
+    static async delete(url) {
+        const response = await fetch(url, {
+            method: 'DELETE'
+        });
+        return await response.json();
     }
 }

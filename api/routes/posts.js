@@ -5,19 +5,19 @@ const express = require('express'),
 
 
 router.get('/', (req, res, next) => {
-	const post = {
-		title: 'eu sou titulo',
-		body: 'eu sou o corpo'
-	};
-	res.status(200).json(post);
+    Post.find()
+        .exec()
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => {
+            res.status(500).json({
+                err: err
+            });
+        })
 });
 
 router.post('/', (req, res, next) => {
-    // const post = {
-    //     title: req.body.title,
-    //     body: req.body.body,
-    //     date: req.body.date
-    // };
     const post = new Post({
         _id: new mongoose.Types.ObjectId(),
         title: req.body.title,
@@ -37,7 +37,22 @@ router.post('/', (req, res, next) => {
             console.log(err);
             res.status(500).json({message: 'error with post', err});
         })
+});
 
+router.delete('/:postId', (req, res, next) => {
+    const id = req.params.postId;
+    Post.remove({_id: id})
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                message: 'post deleted',
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                err: err
+            });
+        })
 });
 
 module.exports = router;

@@ -1,0 +1,16 @@
+.delete {
+    color: red;
+}
+.delete:hover {
+    color: red;
+}
+.links {
+    float: right;
+    margin-top: -55px;
+}
+i:hover {
+    cursor: pointer;
+}
+.card-link{
+    display: inline;
+}

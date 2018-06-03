@@ -14,7 +14,7 @@ mongoose.connect('mongodb://localhost:27017/microposts');
 
 mongoose.Promise = global.Promise;
 
-const port = process.env.PORT || 5000;
+const port = 5000;
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*'); // CORS handling, * means every site can access my API
