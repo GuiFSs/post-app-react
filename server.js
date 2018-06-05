@@ -5,12 +5,16 @@ const express = require('express'),
       mongoose = require('mongoose');
 
 const posts = require('./api/routes/posts');
+const configMlab = {
+    username: 'GuiFSs',
+    password: 'guilherme10'
+};
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost:27017/microposts');
+mongoose.connect(`mongodb://${configMlab.username}:${configMlab.password}@ds139725.mlab.com:39725/microposts`);
 
 mongoose.Promise = global.Promise;
 

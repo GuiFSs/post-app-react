@@ -9,7 +9,11 @@ class App extends Component {
 	constructor (props) {
 		super(props)
 		this.state = {
-			posts: []
+			posts: [],
+			fields: {
+				title: '',
+				body: ''
+			}
 		}
 	}
 
@@ -20,9 +24,10 @@ class App extends Component {
 	postBtnHandler = (event) => {
 		const post = this.verifyFields();
 		if (post === null) return;
-		Http.post('http://localhost:5000/api/posts', post)
+		Http.post('http://192.168.107:5000/api/posts', post)
 			.then(result => {
 				this.updatePostsState();
+				this.clearFields();
 			})
 			.catch(err => console.log(err));
 	}
@@ -43,7 +48,7 @@ class App extends Component {
 	}
 
 	updatePostsState = () => {
-		Http.get('http://localhost:5000/api/posts')
+		Http.get('http://192.168.107:5000/api/posts')
 		.then(data => {
 			this.setState({posts: data});
 		})
@@ -51,7 +56,7 @@ class App extends Component {
 	}
 
 	deletePost = (event, id) => {
-		Http.delete(`http://localhost:5000/api/posts/${id}`)
+		Http.delete(`http://192.168.107:5000/api/posts/${id}`)
 			.then(result => {
 				this.updatePostsState();
 			})
@@ -60,6 +65,18 @@ class App extends Component {
 		event.preventDefault();
 	}
 
+	clearFields = () => {
+		document.getElementById('title').value = '';
+		document.getElementById('body').value = '';
+	}
+
+	fieldsChanged = () => {
+		const fields = {
+			title: document.getElementById('title'),
+			body: document.getElementById('body')
+		};
+		this.setState({fields});
+	}
 
 	showPosts = () => {
 		return this.state.posts.map((post) => {
@@ -72,7 +89,7 @@ class App extends Component {
 		
 		return (
 			<Posts >
-				<PostInput postClick={this.postBtnHandler.bind(this)} />
+				<PostInput changed={this.fieldsChanged.bind(this)} fields={this.state.fields} postClick={this.postBtnHandler.bind(this)} />
 				<br />
 				{posts}
 			</Posts>
